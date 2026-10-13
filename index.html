@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM Practice Exercises</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+section {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+button {
+    padding: 8px 14px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+input {
+    padding: 8px;
+    margin: 5px;
+}
+
+.dark {
+    background-color: #222;
+    color: white;
+}
+
+li {
+    margin: 8px 0;
+}
+</style>
+</head>
+
+<body>
+
+<h1>DOM Practice Exercises</h1>
+
+<section>
+<h2>Exercise 1: Change Heading</h2>
+<h3 id="heading">Hello Student!</h3>
+<button onclick="changeHeading()">Change Heading</button>
+</section>
+
+<section>
+<h2>Exercise 2: Change Font Size</h2>
+<p id="paragraph">This is a sample paragraph.</p>
+<button onclick="changeSize('20px')">Small</button>
+<button onclick="changeSize('30px')">Large</button>
+</section>
+
+<section>
+<h2>Exercise 3: Dark Mode</h2>
+<button onclick="darkMode()">Toggle Dark Mode</button>
+</section>
+
+<section>
+<h2>Exercise 4: Live Input</h2>
+<input type="text" id="liveInput" placeholder="Type something...">
+<p id="liveOutput"></p>
+</section>
+
+<section>
+<h2>Exercise 5 & 6: Add and Delete List Items</h2>
+<input type="text" id="itemInput" placeholder="Enter item">
+<button onclick="addItem()">Add Item</button>
+<ul id="itemList"></ul>
+</section>
+
+<section>
+<h2>Exercise 7: Counter</h2>
+<h3 id="count">0</h3>
+<button onclick="increase()">+</button>
+<button onclick="decrease()">−</button>
+<button onclick="resetCount()">Reset</button>
+</section>
+
+<section>
+<h2>Exercise 8: Student Form</h2>
+<form id="studentForm">
+<input type="text" id="studentName" placeholder="Enter student name" required>
+<button type="submit">Submit</button>
+</form>
+<ul id="studentList"></ul>
+</section>
+
+<script>
+// Exercise 1
+function changeHeading() {
+    document.getElementById("heading").textContent = "Heading Changed!";
+}
+
+// Exercise 2
+function changeSize(size) {
+    document.getElementById("paragraph").style.fontSize = size;
+}
+
+// Exercise 3
+function darkMode() {
+    document.body.classList.toggle("dark");
+}
+
+// Exercise 4
+document.getElementById("liveInput").addEventListener("input", function() {
+    document.getElementById("liveOutput").textContent = this.value;
+});
+
+// Exercise 5 & 6
+function addItem() {
+    const input = document.getElementById("itemInput");
+    const value = input.value.trim();
+
+    if (value === "") {
+        alert("Please enter an item!");
+        return;
+    }
+
+    const li = document.createElement("li");
+    const text = document.createElement("span");
+    text.textContent = value + " ";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", function() {
+        li.remove();
+    });
+
+    li.appendChild(text);
+    li.appendChild(deleteBtn);
+    document.getElementById("itemList").appendChild(li);
+
+    input.value = "";
+}
+
+// Exercise 7
+let number = 0;
+
+function updateCount() {
+    document.getElementById("count").textContent = number;
+}
+
+function increase() {
+    number++;
+    updateCount();
+}
+
+function decrease() {
+    number--;
+    updateCount();
+}
+
+function resetCount() {
+    number = 0;
+    updateCount();
+}
+
+// Exercise 8
+document.getElementById("studentForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("studentName");
+    const name = input.value.trim();
+
+    if (name === "") return;
+
+    const li = document.createElement("li");
+    li.textContent = name;
+
+    document.getElementById("studentList").appendChild(li);
+    input.value = "";
+});
+</script>
+
+</body>
+</html>
